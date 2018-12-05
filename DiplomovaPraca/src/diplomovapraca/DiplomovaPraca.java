@@ -13,6 +13,7 @@ public class DiplomovaPraca {
 
     /**
      * @param args the command line arguments
+     * novz koment
      */
     public static void main(String[] args) {
         //inicializacia
