@@ -30,6 +30,8 @@ public class DiplomovaPraca {
         int gen = 12; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
         int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
 
+        // TODO: Vlozit to do funckie
+
         //int
         int best_points = 0;
         int best_weight = 0;
