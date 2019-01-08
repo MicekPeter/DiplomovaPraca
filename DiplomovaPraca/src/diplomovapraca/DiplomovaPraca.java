@@ -13,33 +13,22 @@ public class DiplomovaPraca {
 
     /**
      * @param args the command line arguments
-     * @param max_w
-     * @param min_w
-     * @param max_p
-     * @param min_p
-     * @param max_b
-     * @param k
-     * @param p
-     * @param rmut
-     * @param prah
-     * @param gen
-     * @param kriz
      */
     
-    public static void main(String[] args, int max_w, int min_w, int max_p, int min_p, int max_b, int k, int p, int rmut, int prah, int gen, int kriz) {
+    public static void main(String[] args) {
         //inicializacia
         //nastavitelne premenne
-        max_w = 2; //maximalna vaha predmetu (weight)
-        min_w = 1; //minimalna vaha predmetu (weight)
-        max_p = 40; //maximalne bodove ohodnotenie (points)
-        min_p = 1; //minimalne bodove ohodnotenie (points)
-        max_b = 50; //objem vedra (bucket)
-        k = 10; //pocet predmetov
-        p = 500; // pocet iteracii (zacina od 0)
-        rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
-        prah = 60; //prah mutacie
-        gen = 12; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
-        kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
+        int max_w = 2; //maximalna vaha predmetu (weight)
+        int min_w = 1; //minimalna vaha predmetu (weight)
+        int max_p = 40; //maximalne bodove ohodnotenie (points)
+        int min_p = 1; //minimalne bodove ohodnotenie (points)
+        int max_b = 50; //objem vedra (bucket)
+        int k = 10; //pocet predmetov
+        int p = 500; // pocet iteracii (zacina od 0)
+        int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
+        int prah = 60; //prah mutacie
+        int gen = 12; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
+        int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
 
         // TODO: Vlozit to do funckie
 
