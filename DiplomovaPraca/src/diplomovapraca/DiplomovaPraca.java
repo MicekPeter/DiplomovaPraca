@@ -24,11 +24,13 @@ public class DiplomovaPraca {
         int min_p = 1; //minimalne bodove ohodnotenie (points)
         int max_b = 50; //objem vedra (bucket)
         int k = 10; //pocet predmetov
-        int p = 500; // pocet iteracii (zacina od 0)
+        int p = 500; //pocet iteracii (zacina od 0)
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
         int gen = 12; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
         int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
+        int sale_weight = 1; //vyber vahy predmetu na akciu (ak 0 tak nieje ziadna akcia)
+        float sale_percentage = 199; //velkost zvysenia bodov v percentach
 
         // TODO: Vlozit to do funckie
 
@@ -64,7 +66,12 @@ public class DiplomovaPraca {
             if (t == 0) {
                 //generovanie prvkov
                 Funkcie.GenerateItems(k, max_w, min_w, max_p, min_p, weights, points);
-
+                
+                //pocitanie akcie
+                if (sale_weight != 0){
+                    Funkcie.SaleCount(k, weights, points, sale_weight, sale_percentage);
+                }
+                
                 //generovanie vedier
                 Funkcie.GenerateBuckets(gen, k, bucket, bucket_weight, weights, bucket_points, points, solutions);
 

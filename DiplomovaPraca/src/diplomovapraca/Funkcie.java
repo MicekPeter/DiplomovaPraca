@@ -16,6 +16,14 @@ public class Funkcie {
         }
     }
 
+    public static void SaleCount(int k, int[] weights, int[] points, int sale_weight, float sale_percentage){
+        for (int i = 0; i < k; i++) {
+            if (weights[i] == sale_weight) {
+                points[i] = ((points[i]) * Math.round((100 + sale_percentage) / 100));
+            }        
+        }
+    }
+    
     public static void GenerateBuckets(int gen, int k, int[] bucket, int[] bucket_weight, int[] weights, int[] bucket_points, int[] points, int[][] solutions) {
         for (int j = 0; j < gen; j++) {
             for (int i = 0; i < k; i++) {
@@ -197,15 +205,15 @@ public class Funkcie {
         }
     }
 
-//    public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight){
-//        if (error[0] < best_error) {
-//            System.arraycopy(solutions[0], 0, best_solution, 0, k);
-//
-//            best_error = error[0];
-//            best_points = bucket_points[0];
-//            best_weight = bucket_weight[0];
-//        }
-//    }
+    public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight){
+        if (error[0] < best_error) {
+            System.arraycopy(solutions[0], 0, best_solution, 0, k);
+
+            best_error = error[0];
+            best_points = bucket_points[0];
+            best_weight = bucket_weight[0];
+        }
+    }
     public static void OutputCrossNumber(int kriz) {
         if (kriz == 1) {
             System.out.println("zvolene " + kriz + "-bodove krizenie");
