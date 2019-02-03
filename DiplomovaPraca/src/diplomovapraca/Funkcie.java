@@ -40,10 +40,10 @@ public class Funkcie {
                     
                 solutions[j][i] = bucket[i];
             }
-            System.out.println("bucket: " + Arrays.toString(bucket));
+//            System.out.println("bucket: " + Arrays.toString(bucket));
         }
-    System.out.println("solutions: " + Arrays.deepToString(solutions));
-    System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
+//    System.out.println("solutions: " + Arrays.deepToString(solutions));
+//    System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
     }
 
     public static void ErrorCount(int gen, int max_b, int[] error, int[] bucket_weight) {
