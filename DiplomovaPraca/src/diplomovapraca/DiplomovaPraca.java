@@ -24,6 +24,7 @@ public class DiplomovaPraca {
         int min_p = 1; //minimalne bodove ohodnotenie (points)
         int max_b = 50; //objem vedra (bucket)
         int k = 10; //pocet predmetov
+        int l = 5; //pocet vedier
         int p = 500; //pocet iteracii (zacina od 0)
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
@@ -43,8 +44,8 @@ public class DiplomovaPraca {
         int[] bucket_weight = new int[gen];
         int[] bucket_points = new int[gen];
         int[] temp_arr = new int[gen];
-        int[] weights = new int[k];
-        int[] points = new int[k];
+        int[] weights = new int[k * l];
+        int[] points = new int[k * l];
         int[] bucket = new int[k];
         int[] error = new int[gen];
         int[] best_solution = new int[k];
@@ -65,11 +66,11 @@ public class DiplomovaPraca {
 
             if (t == 0) {
                 //generovanie prvkov
-                Funkcie.GenerateItems(k, max_w, min_w, max_p, min_p, weights, points);
+                Funkcie.GenerateItems(k, l, max_w, min_w, max_p, min_p, weights, points);
                 
                 //pocitanie akcie
                 if (sale_weight != 0){
-                    Funkcie.SaleCount(k, weights, points, sale_weight, sale_percentage);
+                    Funkcie.SaleCount(k, l, weights, points, sale_weight, sale_percentage);
                 }
                 
                 //generovanie vedier

@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class Funkcie {
 
-    public static void GenerateItems(int k, int max_w, int min_w, int max_p, int min_p, int[] weights, int[] points) {
-        for (int i = 0; i < k; i++) {
+    public static void GenerateItems(int k, int l, int max_w, int min_w, int max_p, int min_p, int[] weights, int[] points) {
+        for (int i = 0; i < k * l; i++) {
 
             int x = (int) (Math.random() * (max_w - min_w + 1) + min_w);
             weights[i] = x;
@@ -16,8 +16,8 @@ public class Funkcie {
         }
     }
 
-    public static void SaleCount(int k, int[] weights, int[] points, int sale_weight, float sale_percentage){
-        for (int i = 0; i < k; i++) {
+    public static void SaleCount(int k, int l, int[] weights, int[] points, int sale_weight, float sale_percentage){
+        for (int i = 0; i < k * l; i++) {
             if (weights[i] == sale_weight) {
                 points[i] = ((points[i]) * Math.round((100 + sale_percentage) / 100));
             }        
