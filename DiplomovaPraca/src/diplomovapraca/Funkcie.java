@@ -24,20 +24,26 @@ public class Funkcie {
         }
     }
     
-    public static void GenerateBuckets(int gen, int k, int[] bucket, int[] bucket_weight, int[] weights, int[] bucket_points, int[] points, int[][] solutions) {
+    public static void GenerateBuckets(int gen, int k, int l, int[] bucket, int[] bucket_weight, int[] weights, int[] bucket_points, int[] points, int[][] solutions) {
         for (int j = 0; j < gen; j++) {
-            for (int i = 0; i < k; i++) {
+            for (int i = 0; i < k * l; i++) {
 
-                int z = (int) (Math.random() * 2);
+                int z = (int) (Math.random() * (l + 1));
                 bucket[i] = z;
 
-                if (z == 1) {
-                    bucket_weight[j] = (int) (bucket_weight[j] + weights[i]);
-                    bucket_points[j] = (int) (bucket_points[j] + points[i]);
-                }
+                    for (int m = 1; m < l + 1; m++){
+                        if (bucket[i] == m){
+                            bucket_weight[j * l + (m - 1)] = (int) (bucket_weight[j * l + (m - 1)] + weights[i]);
+                            bucket_points[j * l + (m - 1)] = (int) (bucket_points[j * l + (m - 1)] + points[i]);
+                        }
+                    }
+                    
                 solutions[j][i] = bucket[i];
             }
+            System.out.println("bucket: " + Arrays.toString(bucket));
         }
+    System.out.println("solutions: " + Arrays.deepToString(solutions));
+    System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
     }
 
     public static void ErrorCount(int gen, int max_b, int[] error, int[] bucket_weight) {

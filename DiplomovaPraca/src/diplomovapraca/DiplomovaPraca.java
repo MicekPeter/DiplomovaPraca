@@ -41,12 +41,12 @@ public class DiplomovaPraca {
         int best_error = k * max_w;
 
         //int[]
-        int[] bucket_weight = new int[gen];
-        int[] bucket_points = new int[gen];
+        int[] bucket_weight = new int[gen * l];
+        int[] bucket_points = new int[gen * l];
         int[] temp_arr = new int[gen];
         int[] weights = new int[k * l];
         int[] points = new int[k * l];
-        int[] bucket = new int[k];
+        int[] bucket = new int[k * l];
         int[] error = new int[gen];
         int[] best_solution = new int[k];
         int[] pamat = new int[gen / 2];
@@ -57,7 +57,7 @@ public class DiplomovaPraca {
         String[] final_solutions_strings = new String[gen];
 
         //int[][]
-        int[][] solutions = new int[gen][k];
+        int[][] solutions = new int[gen][k * l];
         int[][] solutions_50 = new int[gen / 2][k];
 
         //Zaciatok programu
@@ -74,7 +74,7 @@ public class DiplomovaPraca {
                 }
                 
                 //generovanie vedier
-                Funkcie.GenerateBuckets(gen, k, bucket, bucket_weight, weights, bucket_points, points, solutions);
+                Funkcie.GenerateBuckets(gen, k, l, bucket, bucket_weight, weights, bucket_points, points, solutions);
 
                 //pocitanie chyby
                 Funkcie.ErrorCount(gen, max_b, error, bucket_weight);
