@@ -23,8 +23,8 @@ public class DiplomovaPraca {
         int max_p = 40; //maximalne bodove ohodnotenie (points)
         int min_p = 1; //minimalne bodove ohodnotenie (points)
         int max_b = 50; //objem vedra (bucket)
-        int k = 10; //pocet predmetov
-        int l = 5; //pocet vedier
+        int k = 3; //pocet predmetov
+        int l = 3; //pocet vedier
         int p = 500; //pocet iteracii (zacina od 0)
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
@@ -47,7 +47,7 @@ public class DiplomovaPraca {
         int[] weights = new int[k * l];
         int[] points = new int[k * l];
         int[] bucket = new int[k * l];
-        int[] error = new int[gen];
+        int[] error = new int[gen * l];
         int[] best_solution = new int[k];
         int[] pamat = new int[gen / 2];
 
@@ -77,7 +77,7 @@ public class DiplomovaPraca {
                 Funkcie.GenerateBuckets(gen, k, l, bucket, bucket_weight, weights, bucket_points, points, solutions);
 
                 //pocitanie chyby
-                Funkcie.ErrorCount(gen, max_b, error, bucket_weight);
+                Funkcie.ErrorCount(gen, l, max_b, error, bucket_weight);
 
                 //triedenie
                 Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions);
@@ -161,7 +161,7 @@ public class DiplomovaPraca {
             Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points);
 
             //pocitanie chyby
-            Funkcie.CountError(gen, max_b, bucket_weight, error);
+            Funkcie.ErrorCount(gen, l, max_b, bucket_weight, error);
 
             //triedenie
             Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions);

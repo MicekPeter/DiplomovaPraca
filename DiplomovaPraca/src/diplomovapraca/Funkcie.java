@@ -40,16 +40,17 @@ public class Funkcie {
                     
                 solutions[j][i] = bucket[i];
             }
-//            System.out.println("bucket: " + Arrays.toString(bucket));
+            System.out.println("bucket: " + Arrays.toString(bucket));
         }
-//    System.out.println("solutions: " + Arrays.deepToString(solutions));
-//    System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
+    System.out.println("solutions: " + Arrays.deepToString(solutions));
+    System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
     }
 
-    public static void ErrorCount(int gen, int max_b, int[] error, int[] bucket_weight) {
-        for (int j = 0; j < gen; j++) {
+    public static void ErrorCount(int gen, int l, int max_b, int[] error, int[] bucket_weight) {
+        for (int j = 0; j < gen * l; j++) {
             error[j] = Math.abs(bucket_weight[j] - max_b);
         }
+//        System.out.println("error: " + Arrays.toString(error));
     }
 
     public static void Sort(int gen, int[] error, int[] temp_arr, int[] bucket_weight, int[] bucket_points, int[][] solutions) {
@@ -202,12 +203,6 @@ public class Funkcie {
                     bucket_points[i] = (int) (bucket_points[i] + points[j]);
                 }
             }
-        }
-    }
-
-    public static void CountError(int gen, int max_b, int[] bucket_weight, int[] error) {
-        for (int j = 0; j < gen; j++) {
-            error[j] = Math.abs(bucket_weight[j] - max_b);
         }
     }
 
