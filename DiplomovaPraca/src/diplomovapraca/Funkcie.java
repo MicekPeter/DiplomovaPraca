@@ -47,8 +47,10 @@ public class Funkcie {
     }
 
     public static void ErrorCount(int gen, int l, int max_b, int[] error, int[] bucket_weight) {
-        for (int j = 0; j < gen * l; j++) {
-            error[j] = Math.abs(bucket_weight[j] - max_b);
+        for (int j = 0; j < gen; j++) {
+            for (int i = 0; i < l; i++) {
+                error[j] = error[j] + Math.abs(bucket_weight[l * j + i] - max_b);
+            }
         }
 //        System.out.println("error: " + Arrays.toString(error));
     }

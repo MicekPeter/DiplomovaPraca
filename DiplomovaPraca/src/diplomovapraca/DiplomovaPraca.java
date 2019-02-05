@@ -47,7 +47,7 @@ public class DiplomovaPraca {
         int[] weights = new int[k * l];
         int[] points = new int[k * l];
         int[] bucket = new int[k * l];
-        int[] error = new int[gen * l];
+        int[] error = new int[gen];
         int[] best_solution = new int[k];
         int[] pamat = new int[gen / 2];
 
