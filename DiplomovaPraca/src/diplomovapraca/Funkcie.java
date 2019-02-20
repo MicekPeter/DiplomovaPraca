@@ -52,10 +52,19 @@ public class Funkcie {
                 error[j] = error[j] + Math.abs(bucket_weight[l * j + i] - max_b);
             }
         }
-//        System.out.println("error: " + Arrays.toString(error));
+        System.out.println("error: " + Arrays.toString(error));
     }
-
-    public static void Sort(int gen, int[] error, int[] temp_arr, int[] bucket_weight, int[] bucket_points, int[][] solutions) {
+    
+    public static void TypeTransfer(int[] bucket_weight, int[] bucket_points, int bucket_weight_arr[][], int bucket_points_arr[][], int gen, int l){
+        for (int i = 0; i < gen; i++){
+            for (int j = 0; j < l; j++){
+                bucket_weight_arr[i][j] = bucket_weight[l * i + j];
+                bucket_points_arr[i][j] = bucket_points[l * i + j];
+            }            
+        }
+        System.out.println("bucket arr: " + Arrays.deepToString(bucket_weight_arr));
+    }
+    public static void Sort(int gen, int[] error, int[] temp_arr, int[] bucket_weight, int[] bucket_points, int[][] solutions, int[] temp_arr2, int[][] bucket_weight_arr, int[][] bucket_points_arr) {
         for (int m = 0; m < gen; m++) {
             for (int n = 1; n < (gen - m); n++) {
                 if (error[n - 1] > error[n]) {
@@ -67,29 +76,32 @@ public class Funkcie {
                     solutions[n - 1] = solutions[n];
                     solutions[n] = temp_arr;
 
-                    temp = bucket_weight[n - 1];
-                    bucket_weight[n - 1] = bucket_weight[n];
-                    bucket_weight[n] = temp;
+                    temp_arr = bucket_weight_arr[n - 1];
+                    bucket_weight_arr[n - 1] = bucket_weight_arr[n];
+                    bucket_weight_arr[n] = temp_arr;
 
-                    temp = bucket_points[n - 1];
-                    bucket_points[n - 1] = bucket_points[n];
-                    bucket_points[n] = temp;
+                    temp_arr = bucket_points_arr[n - 1];
+                    bucket_points_arr[n - 1] = bucket_points_arr[n];
+                    bucket_points_arr[n] = temp_arr;
                 }
             }
         }
+            System.out.println("solutions po triedeni: " + Arrays.deepToString(solutions));
+            System.out.println("bucket_weight_arr po triedeni: " + Arrays.deepToString(bucket_weight_arr));
+            System.out.println("error po triedeni: " + Arrays.toString(error));
     }
 
-    public static void Output(int[] bucket_weight, int best_error, int[] error, int[] bucket_points, int[] best_solution) {
+    public static void Output(int[][] bucket_weight_arr, int best_error, int[] error, int[][] bucket_points_arr, int[] best_solution) {
         System.out.println("najlepsie riesenie: " + Arrays.toString(best_solution));
-        System.out.println("vaha: " + bucket_weight[0]);
+        System.out.println("vaha: " + Arrays.toString(bucket_weight_arr[0]));
         System.out.println("best_error: " + best_error);
         System.out.println("chyba : " + error[0]);
-        System.out.println("skore : " + bucket_points[0]);
+        System.out.println("skore : " + Arrays.toString(bucket_points_arr[0]));
     }
 
-    public static void Top50(int gen, int[][] solutions, int[][] solutions_50, int k) {
+    public static void Top50(int gen, int[][] solutions, int[][] solutions_50, int k, int l) {
         for (int i = 0; i < gen / 2; i++) {
-            System.arraycopy(solutions[i], 0, solutions_50[i], 0, k);
+            System.arraycopy(solutions[i], 0, solutions_50[i], 0, k * l);
         }
     }
 
@@ -208,9 +220,9 @@ public class Funkcie {
         }
     }
 
-    public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight){
+    public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight, int l){
         if (error[0] < best_error) {
-            System.arraycopy(solutions[0], 0, best_solution, 0, k);
+            System.arraycopy(solutions[0], 0, best_solution, 0, k * l);
 
             best_error = error[0];
             best_points = bucket_points[0];

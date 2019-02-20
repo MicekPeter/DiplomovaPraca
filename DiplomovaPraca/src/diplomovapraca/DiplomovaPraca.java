@@ -19,7 +19,7 @@ public class DiplomovaPraca {
         //inicializacia
         //nastavitelne premenne
         int max_w = 2; //maximalna vaha predmetu (weight)
-        int min_w = 1; //minimalna vaha predmetu (weight)
+        int min_w = 2; //minimalna vaha predmetu (weight)
         int max_p = 40; //maximalne bodove ohodnotenie (points)
         int min_p = 1; //minimalne bodove ohodnotenie (points)
         int max_b = 50; //objem vedra (bucket)
@@ -28,7 +28,7 @@ public class DiplomovaPraca {
         int p = 500; //pocet iteracii (zacina od 0)
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
-        int gen = 12; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
+        int gen = 8; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
         int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
         int sale_weight = 1; //vyber vahy predmetu na akciu (ak 0 tak nieje ziadna akcia)
         float sale_percentage = 199; //velkost zvysenia bodov v percentach
@@ -48,7 +48,7 @@ public class DiplomovaPraca {
         int[] points = new int[k * l];
         int[] bucket = new int[k * l];
         int[] error = new int[gen];
-        int[] best_solution = new int[k];
+        int[] best_solution = new int[k * l];
         int[] pamat = new int[gen / 2];
 
         //String[]
@@ -59,6 +59,8 @@ public class DiplomovaPraca {
         //int[][]
         int[][] solutions = new int[gen][k * l];
         int[][] solutions_50 = new int[gen / 2][k];
+        int[][] bucket_weight_arr = new int[gen][l];
+        int[][] bucket_points_arr = new int[gen][l];
 
         //Zaciatok programu
         for (int t = 0; t < p; t++) {
@@ -78,17 +80,20 @@ public class DiplomovaPraca {
 
                 //pocitanie chyby
                 Funkcie.ErrorCount(gen, l, max_b, error, bucket_weight);
+                
+                //transfer na pole poli
+                Funkcie.TypeTransfer(bucket_weight, bucket_points, bucket_weight_arr, bucket_points_arr, gen, l);
 
                 //triedenie
-                Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions);
+                Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions, temp_arr, bucket_weight_arr, bucket_points_arr);
 
                 //vyber najlepsieho
-                System.arraycopy(solutions[0], 0, best_solution, 0, k);
+                System.arraycopy(solutions[0], 0, best_solution, 0, k * l);
                 best_error = error[0];
-                Funkcie.Output(bucket_weight, best_error, error, bucket_points, best_solution);
+                Funkcie.Output(bucket_weight_arr, best_error, error, bucket_points_arr, best_solution);
             }
             //vyber top 50 percent    
-            Funkcie.Top50(gen, solutions, solutions_50, k);
+            Funkcie.Top50(gen, solutions, solutions_50, k, l);
 
             //CROSSOVER   
             //mazanie pamate
@@ -164,10 +169,10 @@ public class DiplomovaPraca {
             Funkcie.ErrorCount(gen, l, max_b, bucket_weight, error);
 
             //triedenie
-            Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions);
+            Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions, temp_arr, bucket_weight_arr, bucket_points_arr);
 
             //najdenie najlepsieho
-            Funkcie.FindBest(error, best_error, k, best_solution, solutions, best_points, best_weight, bucket_points, bucket_weight);
+            Funkcie.FindBest(error, best_error, k, best_solution, solutions, best_points, best_weight, bucket_points, bucket_weight, l);
 //            if (error[0] < best_error) {
 //                System.arraycopy(solutions[0], 0, best_solution, 0, k);
 //
@@ -175,7 +180,7 @@ public class DiplomovaPraca {
 //                best_points = bucket_points[0];
 //                best_weight = bucket_weight[0];
 //            }
-            Funkcie.Output(bucket_weight, best_error, error, bucket_points, best_solution);
+            Funkcie.Output(bucket_weight_arr, best_error, error, bucket_points_arr, best_solution);
         }
         Funkcie.OutputCrossNumber(kriz);
     }
