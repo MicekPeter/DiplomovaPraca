@@ -207,8 +207,8 @@ public class Funkcie {
         }
     }
 
-    public static void Mutation(int gen, int k, int rmut, int prah, char[] final_solutions_char) {
-        for (int i = 0; i < gen * k; i++) {
+    public static void Mutation(int gen, int k, int rmut, int prah, char[] final_solutions_char, int l) {
+        for (int i = 0; i < gen * k * l; i++) {
             int rndmut = (int) (Math.random() * (rmut + 1));
             if (rndmut > prah) {
                 if (final_solutions_char[i] == '1') {
@@ -218,12 +218,14 @@ public class Funkcie {
                 }
             }
         }
+        System.out.println("final soulutions char mutacia: " + Arrays.toString(final_solutions_char));
     }
 
-    public static void StrtoBucket(int gen, int k, String[] final_solutions_strings, String final_solutions_str) {
+    public static void StrtoBucket(int gen, int k, String[] final_solutions_strings, String final_solutions_str, int l) {
         for (int i = 0; i < gen; i++) {
-            final_solutions_strings[i] = final_solutions_str.substring(i * (k), i * (k) + (k));
+            final_solutions_strings[i] = final_solutions_str.substring(i * (k * l), i * (k * l) + (k * l));
         }
+        System.out.println("final soulutions strings naspak pole: " + Arrays.toString(final_solutions_strings));
     }
 
     public static void ChartoSolutions(int gen, int k, char[] final_solutions_char, int[][] solutions) {

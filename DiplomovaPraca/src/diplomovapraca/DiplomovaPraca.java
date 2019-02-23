@@ -159,15 +159,17 @@ public class DiplomovaPraca {
                 string = string + i;
             }
             char[] final_solutions_char = string.toCharArray();
+            System.out.println("final solutions char: " + Arrays.toString(final_solutions_char));
 
             //MUTACIA
-            Funkcie.Mutation(gen, k, rmut, prah, final_solutions_char);
+            Funkcie.Mutation(gen, k, rmut, prah, final_solutions_char, l);
 
             //prevod char naspat na string
             String final_solutions_str = String.copyValueOf(final_solutions_char);
+            System.out.println("final solutions str: " + (final_solutions_str));
 
             //rozdelenie stringu na vedra
-            Funkcie.StrtoBucket(gen, k, final_solutions_strings, final_solutions_str);
+            Funkcie.StrtoBucket(gen, k, final_solutions_strings, final_solutions_str , l);
 
             //prevod z final_solutions_char [0,1,1,0,1,...] na solutions[[01101][11001]...]
             Funkcie.ChartoSolutions(gen, k, final_solutions_char, solutions);
