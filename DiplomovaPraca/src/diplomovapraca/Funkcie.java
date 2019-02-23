@@ -237,13 +237,13 @@ public class Funkcie {
         System.out.println("solutions po mutacii a vsetkom: " + Arrays.deepToString(solutions_bin));
     }
 
-    public static void CountValues(int gen, int[] bucket_weight, int[] bucket_points, int k, char[] final_solutions_char, int[] weights, int[] points) {
+    public static void CountValues(int gen, int[] bucket_weight, int[] bucket_points, int k, char[] final_solutions_char, int[] weights, int[] points, int l) {
         for (int i = 0; i < gen; i++) {
             bucket_weight[i] = 0;
             bucket_points[i] = 0;
 
-            for (int j = 0; j < k; j++) {
-                if (final_solutions_char[i * k + j] == '1') {
+            for (int j = 0; j < k * l; j++) {
+                if (final_solutions_char[i * k * l + j] == '1') {
                     bucket_weight[i] = (int) (bucket_weight[i] + weights[j]);
                     bucket_points[i] = (int) (bucket_points[i] + points[j]);
                 }

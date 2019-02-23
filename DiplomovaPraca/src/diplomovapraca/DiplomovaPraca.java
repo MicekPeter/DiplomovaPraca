@@ -176,7 +176,7 @@ public class DiplomovaPraca {
             Funkcie.ChartoSolutions(gen, k, final_solutions_char, solutions_bin, l);
 
             //vypocet vah a bodov      
-            Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points);
+            Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points, l);
 
             //pocitanie chyby
             Funkcie.ErrorCount(gen, l, max_b, bucket_weight, error);
