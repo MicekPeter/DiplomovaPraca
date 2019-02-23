@@ -5,6 +5,8 @@
  */
 package diplomovapraca;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Peter Micek
@@ -23,7 +25,7 @@ public class DiplomovaPraca {
         int max_p = 40; //maximalne bodove ohodnotenie (points)
         int min_p = 1; //minimalne bodove ohodnotenie (points)
         int max_b = 50; //objem vedra (bucket)
-        int k = 3; //pocet predmetov
+        int k = 3; //pocet predmetov pre 1 vedro
         int l = 3; //pocet vedier
         int p = 500; //pocet iteracii (zacina od 0)
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
@@ -58,9 +60,10 @@ public class DiplomovaPraca {
 
         //int[][]
         int[][] solutions = new int[gen][k * l];
-        int[][] solutions_50 = new int[gen / 2][k];
+        int[][] solutions_50 = new int[gen / 2][k * l];
         int[][] bucket_weight_arr = new int[gen][l];
         int[][] bucket_points_arr = new int[gen][l];
+        int[][] solutions_bin = new int[gen / 2][k * l * l];
 
         //Zaciatok programu
         for (int t = 0; t < p; t++) {
@@ -94,30 +97,36 @@ public class DiplomovaPraca {
             }
             //vyber top 50 percent    
             Funkcie.Top50(gen, solutions, solutions_50, k, l);
-
+            
+            //prevod na 0/1 z 0/1,2,3..
+            Funkcie.BinaryConvert(gen, l, k, solutions_50, solutions_bin);
+            
             //CROSSOVER   
             //mazanie pamate
             Funkcie.MemErase(pamat);
 
             // vytvarame pole stringov
-            Funkcie.StringConvert(gen, k, solutions_50, spojeny_solutions);
-
+            Funkcie.StringConvert(gen, k, solutions_bin, spojeny_solutions, l);
+            
+            
             //JEDNOBODOVE krizenie
             if (kriz == 1) {
                 for (int i = 0; i < gen / 4; i++) {
                     //generovanie nahodneho cisla na krizenie
-                    int rnd = (int) (Math.random() * (k - 1) + 1);
-
+                    int rnd = (int) (Math.random() * (k * l) - 1) + 1;
+                    System.out.println("rnd: " + rnd);
                     //vyber prvej dvojice a krizenie
                     if (i == 0) {
                         Funkcie.FirstPairChoose(gen, pamat);
-                        Funkcie.SinglePointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i);
+                        Funkcie.SinglePointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, l);
                     } //vyber ostavajucich dvojic a krizenie
                     else {
                         Funkcie.OtherPairChoose(gen, pamat, i, rnd, k, spojeny_solutions, final_solutions);
-                        Funkcie.SinglePointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i);
+                        Funkcie.SinglePointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, l);
                     }
                 }
+                
+                System.out.println("final solutions: " + Arrays.toString(final_solutions));
             }
             //DVOJBODOVE krizenie
             if (kriz == 2) {

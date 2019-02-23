@@ -103,6 +103,7 @@ public class Funkcie {
         for (int i = 0; i < gen / 2; i++) {
             System.arraycopy(solutions[i], 0, solutions_50[i], 0, k * l);
         }
+    System.out.println("top 50: " + Arrays.deepToString(solutions_50));
     }
 
     public static void MemErase(int[] pamat) {
@@ -110,17 +111,34 @@ public class Funkcie {
             pamat[i] = 0;
         }
     }
-
-    public static void StringConvert(int gen, int k, int[][] solutions_50, String[] spojeny_solutions) {
-        for (int i = 0; i < (gen / 2); i++) {
-            for (int j = 0; j < k; j++) {
-                if (j == 0) {
-                    spojeny_solutions[i] = Integer.toString(solutions_50[i][j]);
-                } else {
-                    spojeny_solutions[i] = spojeny_solutions[i] + Integer.toString(solutions_50[i][j]);
+    
+    public static void BinaryConvert(int gen, int l, int k, int[][] solutions_50, int[][] solutions_bin){
+        for (int i = 0; i < gen / 2; i++){
+            for (int m = 1; m < l + 1; m++){
+                for (int j = 0; j < k * l; j++){
+                    if ((int)(solutions_50[i][j]) == m){
+                        solutions_bin[i][k * l * (m - 1) + j] = 1;
+                    }
+                    else {
+                        solutions_bin[i][k * l * (m - 1) + j] = 0;
+                    }
                 }
             }
         }
+        System.out.println("solutions bin: " + Arrays.deepToString(solutions_bin));
+    }
+
+    public static void StringConvert(int gen, int k, int[][] solutions_bin, String[] spojeny_solutions, int l) {
+        for (int i = 0; i < (gen / 2); i++) {
+            for (int j = 0; j < k * l * l; j++) {
+                if (j == 0) {
+                    spojeny_solutions[i] = Integer.toString(solutions_bin[i][j]);
+                } else {
+                    spojeny_solutions[i] = spojeny_solutions[i] + Integer.toString(solutions_bin[i][j]);
+                }
+            }
+        }
+        System.out.println("spojeny solutions: " + Arrays.toString(spojeny_solutions));
     }
 
     public static void FirstPairChoose(int gen, int[] pamat) {
@@ -131,14 +149,19 @@ public class Funkcie {
         while (pamat[1] == pamat[0]) {
             pamat[1] = (int) (Math.random() * (gen / 2) + 1);
         }
+        System.out.println("pamat: " + Arrays.toString(pamat));
+
     }
 
-    public static void SinglePointCross(int gen, int rnd, int k, int[] pamat, String[] spojeny_solutions, String[] final_solutions, int i) {
+    public static void SinglePointCross(int gen, int rnd, int k, int[] pamat, String[] spojeny_solutions, String[] final_solutions, int i, int l) {
         //krizenie
-        final_solutions[2 * i] = spojeny_solutions[pamat[2 * i] - 1].substring(0, rnd) + spojeny_solutions[pamat[2 * i + 1] - 1].substring(rnd, k);
-        final_solutions[2 * i + 1] = spojeny_solutions[pamat[2 * i + 1] - 1].substring(0, rnd) + spojeny_solutions[pamat[2 * i] - 1].substring(rnd, k);
+        final_solutions[2 * i] = "";
+        final_solutions[2 * i + 1] = "";
+        for (int j = 0; j < l; j++) {
+            final_solutions[2 * i] = final_solutions[2 * i] + spojeny_solutions[pamat[2 * i] - 1].substring((k * l * j), (rnd + k * l * j)) + spojeny_solutions[pamat[2 * i + 1] - 1].substring((rnd + k * l * j), (k * l + k * l * j));
+            final_solutions[2 * i + 1] = final_solutions[2 * i + 1] + spojeny_solutions[pamat[2 * i + 1] - 1].substring((k * l * j), (rnd + k * l * j)) + spojeny_solutions[pamat[2 * i] - 1].substring((rnd + k * l * j), (k * l + k * l * j));
+        }
     }
-
     public static void OtherPairChoose(int gen, int[] pamat, int i, int rnd, int k, String[] spojeny_solutions, String[] final_solutions) {
         //generovanie prveho z dvojice
         int rnd1 = (int) (Math.random() * (gen / 2) + 1);
@@ -171,6 +194,7 @@ public class Funkcie {
             }
         }
         pamat[2 * i + 1] = rnd2;
+        System.out.println("pamat: " + Arrays.toString(pamat));
     }
 
     public static void TwoPointCross(int gen, int rnd, int k, int[] pamat, String[] spojeny_solutions, String[] final_solutions, int i, int rnd2kriz) {
