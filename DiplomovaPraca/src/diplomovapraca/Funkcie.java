@@ -99,24 +99,17 @@ public class Funkcie {
         System.out.println("skore : " + Arrays.toString(bucket_points_arr[0]));
     }
 
-    public static void Top50(int gen, int[][] solutions, int[][] solutions_50, int k, int l) {
-        for (int i = 0; i < gen / 2; i++) {
-            System.arraycopy(solutions[i], 0, solutions_50[i], 0, k * l);
-        }
-    System.out.println("top 50: " + Arrays.deepToString(solutions_50));
-    }
-
     public static void MemErase(int[] pamat) {
         for (int i = 0; i < pamat.length; i++) {
             pamat[i] = 0;
         }
     }
     
-    public static void BinaryConvert(int gen, int l, int k, int[][] solutions_50, int[][] solutions_bin){
-        for (int i = 0; i < gen / 2; i++){
+    public static void BinaryConvert(int gen, int l, int k, int[][] solutions, int[][] solutions_bin){
+        for (int i = 0; i < gen; i++){
             for (int m = 1; m < l + 1; m++){
                 for (int j = 0; j < k * l; j++){
-                    if ((int)(solutions_50[i][j]) == m){
+                    if ((int)(solutions[i][j]) == m){
                         solutions_bin[i][k * l * (m - 1) + j] = 1;
                     }
                     else {
@@ -126,6 +119,13 @@ public class Funkcie {
             }
         }
         System.out.println("solutions bin: " + Arrays.deepToString(solutions_bin));
+    }
+    
+    public static void Top50(int gen, int[][] solutions_bin, int[][] solutions_50, int k, int l) {
+        for (int i = 0; i < gen / 2; i++) {
+            System.arraycopy(solutions_bin[i], 0, solutions_50[i], 0, k * l);
+        }
+    System.out.println("top 50: " + Arrays.deepToString(solutions_50));
     }
 
     public static void StringConvert(int gen, int k, int[][] solutions_bin, String[] spojeny_solutions, int l) {
@@ -221,19 +221,20 @@ public class Funkcie {
         System.out.println("final soulutions char mutacia: " + Arrays.toString(final_solutions_char));
     }
 
-    public static void StrtoBucket(int gen, int k, String[] final_solutions_strings, String final_solutions_str, int l) {
-        for (int i = 0; i < gen; i++) {
-            final_solutions_strings[i] = final_solutions_str.substring(i * (k * l), i * (k * l) + (k * l));
-        }
-        System.out.println("final soulutions strings naspak pole: " + Arrays.toString(final_solutions_strings));
-    }
+//    public static void StrtoBucket(int gen, int k, String[] final_solutions_strings, String final_solutions_str, int l) {
+//        for (int i = 0; i < gen; i++) {
+//            final_solutions_strings[i] = final_solutions_str.substring(i * (k * l) * l, i * (k * l) * l + (k * l) * l);
+//        }
+//        System.out.println("final soulutions strings naspak pole: " + Arrays.toString(final_solutions_strings));
+//    }
 
-    public static void ChartoSolutions(int gen, int k, char[] final_solutions_char, int[][] solutions) {
+    public static void ChartoSolutions(int gen, int k, char[] final_solutions_char, int[][] solutions_bin, int l) {
         for (int i = 0; i < gen; i++) {
-            for (int j = 0; j < k; j++) {
-                solutions[i][j] = Character.getNumericValue(final_solutions_char[i * k + j]);
+            for (int j = 0; j < k * l * l; j++) {
+                solutions_bin[i][j] = Character.getNumericValue(final_solutions_char[i * k * l * l + j]);
             }
         }
+        System.out.println("solutions po mutacii a vsetkom: " + Arrays.deepToString(solutions_bin));
     }
 
     public static void CountValues(int gen, int[] bucket_weight, int[] bucket_points, int k, char[] final_solutions_char, int[] weights, int[] points) {

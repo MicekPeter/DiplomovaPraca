@@ -56,14 +56,14 @@ public class DiplomovaPraca {
         //String[]
         String[] spojeny_solutions = new String[(gen / 2)];
         String[] final_solutions = new String[gen];
-        String[] final_solutions_strings = new String[gen];
+        //String[] final_solutions_strings = new String[gen];
 
         //int[][]
         int[][] solutions = new int[gen][k * l];
         int[][] solutions_50 = new int[gen / 2][k * l];
         int[][] bucket_weight_arr = new int[gen][l];
         int[][] bucket_points_arr = new int[gen][l];
-        int[][] solutions_bin = new int[gen / 2][k * l * l];
+        int[][] solutions_bin = new int[gen][k * l * l];
 
         //Zaciatok programu
         for (int t = 0; t < p; t++) {
@@ -95,11 +95,12 @@ public class DiplomovaPraca {
                 best_error = error[0];
                 Funkcie.Output(bucket_weight_arr, best_error, error, bucket_points_arr, best_solution);
             }
-            //vyber top 50 percent    
-            Funkcie.Top50(gen, solutions, solutions_50, k, l);
             
             //prevod na 0/1 z 0/1,2,3..
-            Funkcie.BinaryConvert(gen, l, k, solutions_50, solutions_bin);
+            Funkcie.BinaryConvert(gen, l, k, solutions, solutions_bin);
+            
+            //vyber top 50 percent    
+            Funkcie.Top50(gen, solutions_bin, solutions_50, k, l);
             
             //CROSSOVER   
             //mazanie pamate
@@ -165,14 +166,14 @@ public class DiplomovaPraca {
             Funkcie.Mutation(gen, k, rmut, prah, final_solutions_char, l);
 
             //prevod char naspat na string
-            String final_solutions_str = String.copyValueOf(final_solutions_char);
-            System.out.println("final solutions str: " + (final_solutions_str));
+//            String final_solutions_str = String.copyValueOf(final_solutions_char);
+//            System.out.println("final solutions str: " + (final_solutions_str));
 
             //rozdelenie stringu na vedra
-            Funkcie.StrtoBucket(gen, k, final_solutions_strings, final_solutions_str , l);
+            //Funkcie.StrtoBucket(gen, k, final_solutions_strings, final_solutions_str , l);
 
             //prevod z final_solutions_char [0,1,1,0,1,...] na solutions[[01101][11001]...]
-            Funkcie.ChartoSolutions(gen, k, final_solutions_char, solutions);
+            Funkcie.ChartoSolutions(gen, k, final_solutions_char, solutions_bin, l);
 
             //vypocet vah a bodov      
             Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points);
