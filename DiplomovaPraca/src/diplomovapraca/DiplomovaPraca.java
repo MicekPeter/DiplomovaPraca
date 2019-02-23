@@ -31,7 +31,7 @@ public class DiplomovaPraca {
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
         int gen = 8; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
-        int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
+        int kriz = 2; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
         int sale_weight = 1; //vyber vahy predmetu na akciu (ak 0 tak nieje ziadna akcia)
         float sale_percentage = 199; //velkost zvysenia bodov v percentach
 
@@ -126,7 +126,7 @@ public class DiplomovaPraca {
                     }
                 }
                 
-                System.out.println("final solutions: " + Arrays.toString(final_solutions));
+//                System.out.println("final solutions: " + Arrays.toString(final_solutions));
             }
             //DVOJBODOVE krizenie
             if (kriz == 2) {
@@ -141,16 +141,17 @@ public class DiplomovaPraca {
                     //vyber prvej dvojice a krizenie
                     if (i == 0) {
                         Funkcie.FirstPairChoose(gen, pamat);
-                        Funkcie.TwoPointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, rnd2kriz);
+                        Funkcie.TwoPointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, rnd2kriz, l);
                     } //vyber ostavajucich dvojic a krizenie
                     else {
                         Funkcie.OtherPairChoose(gen, pamat, i, rnd, k, spojeny_solutions, final_solutions);
-                        Funkcie.TwoPointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, rnd2kriz);
+                        Funkcie.TwoPointCross(gen, rnd, k, pamat, spojeny_solutions, final_solutions, i, rnd2kriz, l);
                     }
                 }
             }
             //pridanie povodnych jedincov k potomkom
             System.arraycopy(spojeny_solutions, 0, final_solutions, gen / 2, gen / 2);
+            System.out.println("final solutions cely: " + Arrays.toString(final_solutions));
 
             //prevod stringu na char kvoli mutacii
             String string = "";

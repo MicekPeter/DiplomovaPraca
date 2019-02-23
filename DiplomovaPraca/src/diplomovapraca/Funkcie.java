@@ -197,10 +197,14 @@ public class Funkcie {
         System.out.println("pamat: " + Arrays.toString(pamat));
     }
 
-    public static void TwoPointCross(int gen, int rnd, int k, int[] pamat, String[] spojeny_solutions, String[] final_solutions, int i, int rnd2kriz) {
+    public static void TwoPointCross(int gen, int rnd, int k, int[] pamat, String[] spojeny_solutions, String[] final_solutions, int i, int rnd2kriz, int l) {
         //krizenie
-        final_solutions[2 * i] = spojeny_solutions[pamat[2 * i] - 1].substring(0, rnd) + spojeny_solutions[pamat[2 * i + 1] - 1].substring(rnd, rnd2kriz) + spojeny_solutions[pamat[2 * i] - 1].substring(rnd2kriz, k);
-        final_solutions[2 * i + 1] = spojeny_solutions[pamat[2 * i + 1] - 1].substring(0, rnd) + spojeny_solutions[pamat[2 * i] - 1].substring(rnd, rnd2kriz) + spojeny_solutions[pamat[2 * i + 1] - 1].substring(rnd2kriz, k);
+        final_solutions[2 * i] = "";
+        final_solutions[2 * i + 1] = "";
+        for (int j = 0; j < l; j++) {
+            final_solutions[2 * i] = final_solutions[2 * i] + spojeny_solutions[pamat[2 * i] - 1].substring(k * l * j, rnd + k * l * j) + spojeny_solutions[pamat[2 * i + 1] - 1].substring(rnd + k * l * j, rnd2kriz + k * l * j) + spojeny_solutions[pamat[2 * i] - 1].substring(rnd2kriz + k * l * j, (k * l + k * l * j));
+            final_solutions[2 * i + 1] = final_solutions[2 * i + 1] + spojeny_solutions[pamat[2 * i + 1] - 1].substring(k * l * j, rnd + k * l * j) + spojeny_solutions[pamat[2 * i] - 1].substring(rnd + k * l * j, rnd2kriz + k * l * j) + spojeny_solutions[pamat[2 * i + 1] - 1].substring(rnd2kriz + k * l * j, (k * l + k * l * j));
+        }
     }
 
     public static void Mutation(int gen, int k, int rmut, int prah, char[] final_solutions_char) {
