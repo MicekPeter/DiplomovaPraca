@@ -48,6 +48,10 @@ public class Funkcie {
 
     public static void ErrorCount(int gen, int l, int max_b, int[] error, int[] bucket_weight) {
         for (int j = 0; j < gen; j++) {
+            error[j] = 0;
+        }
+        System.out.println("error: " + Arrays.toString(error));
+        for (int j = 0; j < gen; j++) {
             for (int i = 0; i < l; i++) {
                 error[j] = error[j] + Math.abs(bucket_weight[l * j + i] - max_b);
             }
@@ -97,6 +101,7 @@ public class Funkcie {
         System.out.println("best_error: " + best_error);
         System.out.println("chyba : " + error[0]);
         System.out.println("skore : " + Arrays.toString(bucket_points_arr[0]));
+        System.out.println("error: " + Arrays.toString(error));
     }
 
     public static void MemErase(int[] pamat) {
@@ -242,13 +247,16 @@ public class Funkcie {
             bucket_weight[i] = 0;
             bucket_points[i] = 0;
 
-            for (int j = 0; j < k * l; j++) {
-                if (final_solutions_char[i * k * l + j] == '1') {
-                    bucket_weight[i] = (int) (bucket_weight[i] + weights[j]);
-                    bucket_points[i] = (int) (bucket_points[i] + points[j]);
+            for (int m = 0; m < l; m++){
+                for (int j = 0; j < k; j++) {
+                    if (final_solutions_char[m * l + i * k * l + j] == '1') {
+                        bucket_weight[i] = (int) (bucket_weight[i] + weights[j]);
+                        bucket_points[i] = (int) (bucket_points[i] + points[j]);
+                    }
                 }
             }
         }
+        System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
     }
 
     public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight, int l){
