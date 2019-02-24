@@ -242,7 +242,7 @@ public class Funkcie {
         System.out.println("solutions po mutacii a vsetkom: " + Arrays.deepToString(solutions_bin));
     }
 
-    public static void CountValues(int gen, int[] bucket_weight, int[] bucket_points, int k, char[] final_solutions_char, int[] weights, int[] points, int l) {
+    public static void CountValues(int gen, int[] bucket_weight, int[] bucket_points, int k, char[] final_solutions_char, int[] weights, int[] points, int l, int[] error) {
         for (int i = 0; i < gen; i++) {
             bucket_weight[i] = 0;
             bucket_points[i] = 0;
@@ -257,6 +257,7 @@ public class Funkcie {
             }
         }
         System.out.println("bucket_weight: " + Arrays.toString(bucket_weight));
+        System.out.println("error: " + Arrays.toString(error));
     }
 
     public static void FindBest(int[] error, int best_error, int k, int [] best_solution, int [][] solutions, int best_points, int best_weight, int[] bucket_points, int[] bucket_weight, int l){
@@ -268,6 +269,7 @@ public class Funkcie {
             best_weight = bucket_weight[0];
         }
     }
+
     public static void OutputCrossNumber(int kriz) {
         if (kriz == 1) {
             System.out.println("zvolene " + kriz + "-bodove krizenie");

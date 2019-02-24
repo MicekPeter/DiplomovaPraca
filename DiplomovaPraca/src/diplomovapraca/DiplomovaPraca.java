@@ -31,7 +31,7 @@ public class DiplomovaPraca {
         int rmut = 100; //rozsah pre generovanie mutacie (interval 0 - rmut)
         int prah = 60; //prah mutacie
         int gen = 8; //pocet vygenerovani vektorov naplnenia (musi byt delit 4)
-        int kriz = 2; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
+        int kriz = 1; //kolko bodove krizenie ma prebiehat ('1' = jednobodove krizenie | '2' = dvojbodove krizenie)
         int sale_weight = 1; //vyber vahy predmetu na akciu (ak 0 tak nieje ziadna akcia)
         float sale_percentage = 199; //velkost zvysenia bodov v percentach
 
@@ -176,10 +176,10 @@ public class DiplomovaPraca {
             Funkcie.ChartoSolutions(gen, k, final_solutions_char, solutions_bin, l);
 
             //vypocet vah a bodov      
-            Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points, l);
+            Funkcie.CountValues(gen, bucket_weight, bucket_points, k, final_solutions_char, weights, points, l, error);
 
             //pocitanie chyby
-            Funkcie.ErrorCount(gen, l, max_b, bucket_weight, error);
+            Funkcie.ErrorCount(gen, l, max_b, error, bucket_weight);
 
             //triedenie
             Funkcie.Sort(gen, error, temp_arr, bucket_weight, bucket_points, solutions, temp_arr, bucket_weight_arr, bucket_points_arr);
